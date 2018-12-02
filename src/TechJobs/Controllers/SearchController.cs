@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using TechJobs.Models;
+using System;
 
 namespace TechJobs.Controllers
 {
@@ -15,6 +16,42 @@ namespace TechJobs.Controllers
 
         // TODO #1 - Create a Results action method to process 
         // search request and display results
+        public IActionResult Search()
+        {
+            ViewBag.jobs = JobData.FindAll();
+            return View();
+        }
+
+        public IActionResult Results(string searchType, string searchTerm)
+        {
+            if (String.IsNullOrWhiteSpace(searchType) || searchType.ToLower() == "all")
+            {
+                if (String.IsNullOrWhiteSpace(searchTerm)) // if user chose "all" with a wildcard search term.
+                {
+                    ViewBag.jobs = JobData.FindAll();
+                }
+                else // else use the search term across all fields.
+                {
+                    ViewBag.jobs = JobData.FindByValue(searchTerm); 
+                }
+            }
+            else
+            {
+                if (String.IsNullOrWhiteSpace(searchTerm)) // if the search term is a wild card, return all.
+                {
+                    ViewBag.jobs = JobData.FindAll();
+                }
+                else // else search the selected column with the search term.
+                {
+                    ViewBag.jobs = JobData.FindByColumnAndValue(searchType, searchTerm);
+                }
+               
+            }
+
+            ViewBag.columns = ListController.columnChoices;
+            ViewBag.title = "Search";
+            return View("Index");
+        }
 
     }
 }
