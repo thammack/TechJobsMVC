@@ -2,16 +2,24 @@
 
 <form action="/Search/Results">
     <h2>Search by:</h2>
-
+    @{ 
+        string lastSearch = "all";
+        if (ViewData.ContainsKey("SearchType"))
+        {
+            lastSearch = (string)(ViewData["SearchType"]);
+        }
+   
+     }
     <p>
         @foreach (KeyValuePair<string, string> column in ViewBag.columns)
         {
+            bool isChecked = column.Key == lastSearch;
             <span>
                 <input type="radio"
                        name="searchType"
                        id="@column.Key"
                        value="@column.Key"
-                       checked="@column.Key == 'all'" />
+                       checked=@isChecked />
                 <label for="@column.Key">@column.Value</label>
             </span>
         }
