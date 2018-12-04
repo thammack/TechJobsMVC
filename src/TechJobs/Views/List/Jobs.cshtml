@@ -11,19 +11,28 @@
     <p>
         <table class="job-listing">
 
-            @{int rowIndex = 0; }
-
             @foreach (KeyValuePair<string, string> kvp in job)
             {
-                <tr class="@( rowIndex % 2 == 0 ? "even" : "odd" ) ">
-                    <td><b>@kvp.Key</b></td>
+                char[] carray = kvp.Key.ToCharArray();
+                if (carray.Length >= 1)
+                {
+                    carray[0] = char.ToUpper(carray[0]);
+                }
+                for (int i = 1; i < carray.Length; i++)
+                {
+                    if (carray[i - 1] == ' ')
+                    {
+                        carray[i] = char.ToUpper(carray[i]);
+                    }
+                }
+                string name = new string(carray);
+
+                <tr>
+                    <td><b>@name</b></td>
                     <td>@kvp.Value</td>
                 </tr>
-
-                rowIndex++;
             }
-
-        </table>
+            </table>
     </p>
 }
 
