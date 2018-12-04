@@ -48,9 +48,26 @@ namespace TechJobs.Controllers
                
             }
 
+            // save off variables for the search field to reload.
+            AddViewData("SearchType", searchType);
+            AddViewData("SearchTerm", searchTerm);
+            
+
             ViewBag.columns = ListController.columnChoices;
             ViewBag.title = "Search";
             return View("Index");
+        }
+
+        private void AddViewData(string name, string value)
+        {
+            if (ViewData.ContainsKey(name))
+            {
+                ViewData[name] = value;
+            }
+            else
+            {
+                ViewData.Add(name, value);
+            }
         }
 
     }

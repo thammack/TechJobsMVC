@@ -9,7 +9,7 @@
 @foreach (Dictionary<string, string> job in ViewBag.jobs)
 {
     <p>
-        <table align="center">
+        <table class="job-listing">
 
             @{int rowIndex = 0; }
 
@@ -25,6 +25,5 @@
 
         </table>
     </p>
-    <br />
 }
 

@@ -19,7 +19,14 @@
 
     <p>
         <label for="searchTerm">Keyword:</label>
-        <input type="text" name="searchTerm" id="searchTerm" />
+        @if (ViewData.ContainsKey("SearchTerm"))
+        {
+            <input type="text" name="searchTerm" id="searchTerm" value=@ViewData["SearchTerm"] />
+        }
+        else
+        {
+           <input type="text" name="searchTerm" id="searchTerm" />
+        }
     </p>
 
     <input type="submit" value="Search" />
@@ -36,7 +43,7 @@
         @foreach (Dictionary<string, string> job in ViewBag.jobs)
         {
             <p>
-                <table align="center">
+                <table class="job-listing">
 
                     @{int rowIndex = 0; }
 
@@ -52,6 +59,6 @@
 
                 </table>
             </p>
-            <br />
+            
         }
 }
