@@ -27,10 +27,17 @@
                 }
                 string name = new string(carray);
 
-                <tr>
-                    <td><b>@name</b></td>
+            <tr>
+                <td><b>@name</b></td>
+                @if (kvp.Key == "name")
+                {
                     <td>@kvp.Value</td>
-                </tr>
+                }
+                else
+                {
+                    <td><a asp-controller="List" asp-action="Jobs" asp-route-column="@kvp.Key" asp-route-value="@kvp.Value">@kvp.Value</a></td>
+                }
+            </tr>
             }
             </table>
     </p>
