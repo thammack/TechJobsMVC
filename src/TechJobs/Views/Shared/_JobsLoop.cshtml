@@ -1,0 +1,44 @@
+﻿@{ 
+// TODO #2 - Loop over jobs dictionary and display all job fields
+}
+@foreach (Dictionary<string, string> job in ViewBag.jobs)
+{
+    <p>
+        <table class="job-listing">
+
+            @foreach (KeyValuePair<string, string> kvp in job)
+            {
+                char[] carray = kvp.Key.ToCharArray();
+                if (carray.Length >= 1)
+                {
+                    carray[0] = char.ToUpper(carray[0]);
+                }
+                for (int i = 1; i < carray.Length; i++)
+                {
+                    if (carray[i - 1] == ' ')
+                    {
+                        carray[i] = char.ToUpper(carray[i]);
+                    }
+                }
+                string name = new string(carray);
+
+                <tr>
+                    <td><b>@name</b></td>
+                    @if (kvp.Key == "name")
+                    {
+                        <td>@kvp.Value</td>
+                    }
+                    else
+                    {
+                        <td><a asp-controller="List" asp-action="Jobs" asp-route-column="@kvp.Key" asp-route-value="@kvp.Value">@kvp.Value</a></td>
+                    }
+
+
+                </tr>
+
+            }
+
+        </table>
+    </p>
+
+}
