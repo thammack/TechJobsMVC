@@ -9,7 +9,6 @@ namespace TechJobs.Controllers
     {
         public IActionResult Index()
         {
-            ViewBag.columns = ListController.columnChoices;
             ViewBag.title = "Search";
             return View();
         }
@@ -50,10 +49,8 @@ namespace TechJobs.Controllers
 
             // save off variables for the search field to reload.
             AddViewData("SearchType", searchType);
-            AddViewData("SearchTerm", searchTerm);
-            
+            AddViewData("SearchTerm", searchTerm);         
 
-            ViewBag.columns = ListController.columnChoices;
             ViewBag.title = "Search";
             return View("Index");
         }
