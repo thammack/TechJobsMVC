@@ -5,7 +5,7 @@ using TechJobs.Models;
 
 namespace TechJobs.Controllers
 {
-    public class ListController : Controller
+    public class ListController : TechJobsController
     {
         internal static Dictionary<string, string> columnChoices = new Dictionary<string, string>();
 
